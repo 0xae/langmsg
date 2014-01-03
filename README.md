@@ -21,10 +21,12 @@ Assignment
 ___________________
 var = proc | fun{ instructions }
 
+
 Message Passsing
 ___________________
 var ! message
 var ! { code here }
+
 
 Message Receiving
 ___________________
