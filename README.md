@@ -18,15 +18,15 @@ There are basically three types of objects
 * strings(those raw strings )
 
 Assignment
-----------------------
+___________________
 var = proc | fun{ instructions }
 
 Message Passsing
------------------------
+___________________
 var ! message
 var ! { code here }
 
 Message Receiving
------------------------
+___________________
 var ?
 
