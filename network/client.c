@@ -13,6 +13,7 @@
 
 extern void die(char *error); //to be linked with error.o
 lm_port vmport;
+int term = 0;
 
 void* mailbox_proc(void *data){
     int *sock = (int*)data;
@@ -21,8 +22,9 @@ void* mailbox_proc(void *data){
         int rv = lm_file_read(*sock, mailbox, BUFSIZE);
         mailbox[rv] = '\0';
         printf("\n%s\n", mailbox);
+        if( term )
+            break;
     }
-
     return NULL;
 }
 
@@ -52,10 +54,8 @@ int main(int argc, char *argv[]){
     if( conn < 0 ){
         die("connect() failed");        
     }
-
     vmport.fd = sock;
     strcpy(vmport.name, name);
-    
     pthread_create(&mailbox_thread, NULL, mailbox_proc, (void*)&sock);
 
     char message[BUFSIZE+1];
@@ -66,6 +66,9 @@ int main(int argc, char *argv[]){
         printf("%s@%d> ", vmport.name,vmport.fd);
         gets(message);
         unsigned int message_len = strlen(message);
+        message[message_len] = '#';
+        message[message_len+1] = '\0';
+        printf("%s\n", message);
         
         if( message_len == 0 ){
             continue;
@@ -75,15 +78,14 @@ int main(int argc, char *argv[]){
             continue;
         }
             
-        message[message_len] = '\0';
         lm_file_write(sock, message, BUFSIZE);
 
         if( strcmp(message, "quit") == 0 ){
+            term = 1;
+            pthread_join(mailbox_thread, NULL);
             break;
         }
-
-    }
- 
+    } 
     close(sock);
     return 0;
 }

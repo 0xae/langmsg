@@ -18,35 +18,36 @@
 
 #define MAXPENDING    5
 #define MAX_PORTS     100
-#define MAX_NODE_NAME 60
-#define BUFSIZE       500
+#define MAX_NODE_NAME 60+1
+#define MAX_MSG_SIZE  500+1
+#define BUFSIZE       500+1
 
 typedef struct{
     int fd;
-    unsigned char name[MAX_NODE_NAME+1];
+    unsigned char name[MAX_NODE_NAME];
 }lm_port;
+
 
 extern void die(char *error);
 
 lm_port* ports[MAX_PORTS];
 lm_port* nilport = NULL;
 
-/*
-    ** a:node
-    ** r:node
-    ** u:node
-    ** m:node:message
-*/
-
-void get_action(const char *from, char *buffer){
-    strncpy(buffer, from, 2);
+int len_of_string(const char *buffer){
+    int i = 0;
+    while( buffer[i++] != '#' )
+        ;
+    
+    return i-1;
+    
 }
 
 int get_nodename(const char *from, char *buffer){
     //skip the protocol
     int c,i=0,t=0;
     const char *from2 = from+2;
-    while(c != '\0'){
+    
+    while(c != '#'){
         c = from2[i];
         if( c == ':' ){
             t++;
@@ -58,19 +59,19 @@ int get_nodename(const char *from, char *buffer){
         }
         buffer[i++] = c;
     }
-    
     return i;
-    
 }
 
 void get_message(const char *from, char *buffer){
-    const char *ptr = from+3; //skip the protocol
+    const char *ptr = from+2; //skip the protocol
     int c=0,i=0;
-    while( c != ':' && c != '\0' ){
+    while( c != ':' && c != '#' ){
         c = ptr[i++];
     }
-    if( i < BUFSIZE )
-        strcpy(buffer,from+i);
+
+    if( i < BUFSIZE ){
+        strcpy(buffer,from+i);    
+    }
 }
 
 int last = 0;
@@ -94,7 +95,7 @@ lm_port* get_port_by_name(char *name){
     for(i=0;i<MAX_PORTS;i++){
         lm_port *port = ports[i];
         if( port == nilport )
-            break;
+            continue;
         if(strcmp(port->name,name) == 0)
             return ports[i];
     }
@@ -106,7 +107,10 @@ lm_port* get_port_by_name(char *name){
 lm_port* get_port_by_fd(int fd){
     int i;
     for(i=0;i<MAX_PORTS;i++){
-        if(ports[i]->fd == fd){
+        lm_port *port = ports[i];
+        if( port == nilport )
+            continue;
+        if(port->fd == fd){
             return ports[i];
         }
     }

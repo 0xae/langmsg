@@ -26,24 +26,27 @@ void* handle_client(void *arg){
 
     while(1){
         int received = lm_file_read(client_sock, inbuffer, BUFSIZE);
+        int str_len = len_of_string(inbuffer);
+        inbuffer[str_len] = '\0';
+        printf("Received '%s'\n");
         
         if( received == -1 ){
             fprintf(stderr, "%d terminated abruptaly\n", client_sock);
             break;
         }
 
-        inbuffer[received] = '\0';
-        int nodenamesize = get_nodename(inbuffer, nodename);
+        get_nodename(inbuffer, nodename);
+        int nodenamesize = len_of_string(nodename);
         nodename[nodenamesize] = '\0';
 
         if( strncmp(inbuffer,"r:",2) == 0 ){ // registering node
             printf("Registering node '%s'\n", nodename);
             register_port(nodename, client_sock);
-            sprintf(outbuffer, "register('%s')", nodename);
+            sprintf(outbuffer, "register '%s'", nodename);
 
         }else if ( strncmp(inbuffer, "u:", 2) == 0 ){ // unregistering node
             printf("Unregistering node '%s'\n", nodename);
-            sprintf(outbuffer, "unregister('%s')", nodename);
+            sprintf(outbuffer, "unregister '%s'", nodename);
 
         }else if ( strncmp(inbuffer, "a:", 2) == 0 ){ // getting the address of a node
             lm_port *port = get_port_by_name(nodename);
@@ -56,27 +59,27 @@ void* handle_client(void *arg){
             sprintf(outbuffer, "%d", fd);
 
         }else if ( strncmp(inbuffer, "m:", 2) == 0 ){
-            int start = strlen(nodename);
-            char *message = inbuffer+(start+2);
+            int start = strlen(nodename)+3;
+            char *message = inbuffer+start;
             lm_port *port = get_port_by_name(nodename);
+
             if( port != nilport ){
                 strcpy(outbuffer, "ok");
                 lm_file_write(port->fd, message, BUFSIZE);
             }else{
-                sprintf(outbuffer, "bad_node('%s')", nodename);
+                sprintf(outbuffer, "bad_node '%s'", nodename);
             }
 
-        }else if( strcmp(inbuffer,"quit") == 0){
-            break;        
+        }else if( strcmp(inbuffer,"quit") == 0 ){
+            break;
+
         }else{ //malformed message
             printf("bad message '%s'\n", inbuffer);
-            sprintf(outbuffer, "bad_msg('%s')", inbuffer);
+            sprintf(outbuffer, "bad_msg '%s'", inbuffer);
         }
-
        
         lm_file_write(client_sock, outbuffer, BUFSIZE);
     }
-
     close(client_sock);
     return NULL;
 }
