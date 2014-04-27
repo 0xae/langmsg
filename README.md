@@ -6,9 +6,11 @@ distributed node comunication.
 It was designed for sending and receiving
 messages within a cluster.
 
-Is an interpreter that supports
-variable assignments,message sending 
-and message receiving.
+It's basically an interpreter that 
+registers itself on a local or distributed name server
+and provides variable assignments,message sending 
+and message receiving, to allow you to
+communicate with other nodes.
 
 
 Syntax
@@ -24,10 +26,10 @@ Syntax
 
 
 Building up things
-=============
+===============
 lmsg is written in pure ANSI C, so
 it shall compile fine on unix/linux.
 To build the shell run:
 
     cd src && make
-    bin/lmsh  #run the shell
+    bin/lmsh <node_name> <server_host> <server_port>  #run the shell
