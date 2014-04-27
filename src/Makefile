@@ -6,7 +6,7 @@ CC=gcc
 
 all: lib code
 lib: anet ae logging list hashtable
-code: object eval lmsgi lmsgi_main testing shell
+code: object testing shell
 
 # *----------------- Library -------------------*
 #

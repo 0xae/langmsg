@@ -23,9 +23,11 @@ syntax
     "<object> = {}         --> creates a new local process"
 
 
-starting up
+building up things
 =============
-The server is written in Java using
-the popular netty.
+lmsg is written in pure ANSI C, so
+it shall compile fine on unix/linux.
+To build the shell run:
 
- 
+    cd src && make
+    bin/lmsh  #run the shell
