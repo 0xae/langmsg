@@ -13,7 +13,7 @@ and message receiving.
 
 syntax
 =============
-    "   @node ! <message>  --> send <message> to a distributed node"
+    "   @<node> ! <message>  --> send <message> to a distributed node"
     "<node_name> ?            --> get last message sent to this node"
 
     "<object> ! <message>  --> send <message> to <object>"
