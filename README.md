@@ -1,4 +1,4 @@
-langmsg
+Langmsg
 ===========
 
 lmsg is a small tool for 
@@ -11,7 +11,7 @@ variable assignments,message sending
 and message receiving.
 
 
-syntax
+Syntax
 =============
     "   @<node> ! <message>  --> send <message> to a distributed node"
     "<node_name> ?            --> get last message sent to this node"
@@ -23,7 +23,7 @@ syntax
     "<object> = {}         --> creates a new local process"
 
 
-building up things
+Building up things
 =============
 lmsg is written in pure ANSI C, so
 it shall compile fine on unix/linux.
