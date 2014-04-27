@@ -1,34 +1,31 @@
 langmsg
-==========
+===========
 
 lmsg is a small tool for 
 distributed node comunication.
 It was designed for sending and receiving
 messages within a cluster.
 
-These tool is an interpreter that supports
-variable assignments, functions literals,
-message sending and message receiving.
+Is an interpreter that supports
+variable assignments,message sending 
+and message receiving.
+
 
 syntax
-============
-There are basically three types of objects
-* funs(cool functions) Not suported yet
-* objects(those that sends and receive messages)
-* strings(those raw strings)
+=============
+    "   @node ! <message>  --> send <message> to a distributed node"
+    "<node_name> ?            --> get last message sent to this node"
 
-Assignment
-___________________
-var = proc | fun{ instructions }
-
-
-Message Passsing
-___________________
-var ! message
-var ! { code here }
+    "<object> ! <message>  --> send <message> to <object>"
+    "<object> ?            --> get last message sent to <object>"
+    "<object> +            --> debug <object>"
+    "<object>              --> get some info about <object>"
+    "<object> = {}         --> creates a new local process"
 
 
-Message Receiving
-___________________
-var ?
+starting up
+=============
+The server is written in Java using
+the popular netty.
 
+ 
