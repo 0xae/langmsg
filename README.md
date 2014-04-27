@@ -1,5 +1,5 @@
 langmsg
-=====
+==========
 
 lmsg is a small tool for 
 distributed node comunication.
@@ -15,7 +15,7 @@ syntax
 There are basically three types of objects
 * funs(cool functions) Not suported yet
 * objects(those that sends and receive messages)
-* strings(those raw strings )
+* strings(those raw strings)
 
 Assignment
 ___________________
