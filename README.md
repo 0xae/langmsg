@@ -12,6 +12,10 @@ and provides variable assignments,message sending
 and message receiving, to allow you to
 communicate with other nodes.
 
+Up to now, the server and the client
+are not finished yet, so expect 
+more commits.
+
 
 Syntax
 =============
