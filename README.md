@@ -19,14 +19,15 @@ more commits.
 
 Syntax
 =============
-    "   @<node> ! <message>  --> send <message> to a distributed node"
-    "<node_name> ?            --> get last message sent to this node"
+    "@<node> ! <message>   --> send <message> to a distributed node"
+    "@<node_name> ?        --> get last message sent to this node"
 
+    "<object> = {}         --> creates a new local process"
     "<object> ! <message>  --> send <message> to <object>"
     "<object> ?            --> get last message sent to <object>"
     "<object> +            --> debug <object>"
     "<object>              --> get some info about <object>"
-    "<object> = {}         --> creates a new local process"
+
 
 
 Building up things
