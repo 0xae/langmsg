@@ -17,8 +17,7 @@ are not finished yet, so expect
 more commits.
 
 
-Syntax
-=============
+### Syntax
     "@<node> ! <message>   --> send <message> to a distributed node"
     "@<node_name> ?        --> get last message sent to this node"
 
@@ -30,8 +29,7 @@ Syntax
 
 
 
-Building up things
-===============
+## Building up things
 lmsg is written in pure ANSI C, so
 it shall compile fine on unix/linux.
 To build the shell run:
