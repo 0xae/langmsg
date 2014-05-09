@@ -29,7 +29,7 @@ more commits.
 
 
 
-## Building up things
+### Building up things
 lmsg is written in pure ANSI C, so
 it shall compile fine on unix/linux.
 To build the shell run:
