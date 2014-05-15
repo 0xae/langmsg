@@ -168,8 +168,6 @@ lmobject*  lmEvalLine(char *line){
                 switch(var->type){
                     case PROC:
                         return lmReceive(var);
-                    case PORT:
-                        return lmReadPort(var);
                     default:
                         fprintf(stderr, "TypeError: '%s' is not an IO_Object\n", first);
                         return NULL;
@@ -187,8 +185,6 @@ lmobject*  lmEvalLine(char *line){
                 switch(var->type){
                     case PROC:
                         return lmSend(var, msg);
-                    case PORT:
-                        return lmWritePort(var, msg);
                     default:
                         fprintf(stderr, "TypeError: '%s' is not a IO_Object\n", first);
                         return NULL;
@@ -221,20 +217,6 @@ lmobject*  lmEvalLine(char *line){
         case '\0' : {
             if(!strcmp(first,"{}")){
                 return lmNewProc();
-
-            }else if(!strncmp(first, "file->", 6)){ /* A file port */
-                fprintf(stderr, "openning port to '%s'\n", first+6);
-                FILE *f = fopen(first+6, "a");
-                int fd = fileno(f);
-
-                if(fd < 0){
-                    char *err = strerror(errno);
-                    return lmNewAtom(err);
-                }else{
-                    return lmNewPort(fd);
-                }
-            }else if(!strncmp(first, "socket->", 8)){ /* A socket port */
-                fprintf(stderr, "openning port to '%s'\n", first+6);
             }
 
             if(isUpper(*first)){
