@@ -165,12 +165,11 @@ lmobject*  lmEvalLine(char *line){
         case '?' : {
             lmobject *var = lmGetSafeVar(first);
             if(var != NULL){
-                switch(var->type){
-                    case PROC:
-                        return lmReceive(var);
-                    default:
-                        fprintf(stderr, "TypeError: '%s' is not an IO_Object\n", first);
-                        return NULL;
+                if(var->type == PROC){
+                    return lmReceive(var);
+                }else{
+                    fprintf(stderr, "TypeError: '%s' is not an IO_Object\n", first);
+                    return NULL;
                 }
             }
             return var;
@@ -182,12 +181,11 @@ lmobject*  lmEvalLine(char *line){
             lmobject *msg = lmEvalLine(third);
 
             if(var != NULL && msg != NULL){
-                switch(var->type){
-                    case PROC:
-                        return lmSend(var, msg);
-                    default:
-                        fprintf(stderr, "TypeError: '%s' is not a IO_Object\n", first);
-                        return NULL;
+                if(var->type == PROC){
+                    return lmSend(var, msg);
+                }else{
+                    fprintf(stderr, "TypeError: '%s' is not a IO_Object\n", first);
+                    return NULL;
                 }
             }
             return var;
