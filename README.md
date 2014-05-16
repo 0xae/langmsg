@@ -12,9 +12,11 @@ and provides variable assignments,message sending
 and message receiving, to allow you to
 communicate with other nodes.
 
-Up to now, the server and the client
-are not finished yet, so expect 
-more commits.
+Up to now, it is only a shell for evaluating atoms,
+message passing and pattern matching in the
+erlang style.
+The server and the distributed communication
+will added soon.
 
 
 ### Syntax
