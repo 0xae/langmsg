@@ -35,4 +35,4 @@ it shall compile fine on unix/linux.
 To build the shell run:
 
     cd src && make
-    bin/lmsh <node_name> <server_host> <server_port>  #run the shell
+    bin/lmsh  #run the shell
