@@ -125,15 +125,7 @@ void run_lmsgi(lmsgi_state *lmsgi){
                    "<object> = proc       --> create a new object\n\n"
                    KGRN "Note: When a distributed node receives a message\n"
                         "it is stored under the @<node> where <node>\n"
-                        "is the name of the node(obvious)!\n");
-                    if(lmsgi->eport == -1){
-                        fprintf(stderr, "This is  not a distributed node, so you dont\n"
-                                         "have to consern yourself about that.\n\n");
-                    }else{
-                        fprintf(stderr, "For example to receive\n"
-                                        "the messages sent to this node, just run \'@%s ?\'\n\n",
-                                        lmsgi->name);
-                    }
+                        "is the name of the node!\n");
         }else{
             Object = lm_eval(lmsgi, buffer);
             lm_repr(Object, reprbuff);
