@@ -1,7 +1,7 @@
 #include <stdio.h>  
 #include <stdlib.h>
 #include <string.h>
-#include "lmobject.h"
+#include <lang/lmobject.h>
 
 inline lmobject* get_var(lmtable *symtable, char *name){
     lmbucket *bucket = lm_hashtable_get(symtable, name);
