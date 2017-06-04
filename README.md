@@ -16,7 +16,7 @@ Up to now, it is only a shell for evaluating atoms,
 message passing and pattern matching in the
 erlang style.
 The server and the distributed communication
-will added soon.
+will be added soon.
 
 
 ### Syntax
