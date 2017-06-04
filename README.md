@@ -33,7 +33,7 @@ will added soon.
 
 ### Building up things
 lmsg is written in pure ANSI C, so
-it shall compile fine on unix/linux.
+it shall compile fine with a decent C/C++ compiler.
 To build the shell run:
 
     cd src && make
